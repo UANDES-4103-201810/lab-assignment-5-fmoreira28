@@ -1,7 +1,7 @@
 class PlacesController < ApplicationController
   def show
-    @place=Place.find(params[:id])
-    render json: @place
+    place=Place.find(params[:id])
+    render json: place
   end
 
   def new
