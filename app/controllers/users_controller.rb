@@ -1,17 +1,17 @@
 class UsersController < ApplicationController
   def show
     @user=User.find(params[:id])
+    render json: @user
   end
 
   def new
     @user=User.new
-    @users=User.find(:all)
   end
 
   def create
-    @user=User.new([:name][:last_name][:email][:password][:address])
+    user=User.new(name: params[:name],last_name: params[:last_name],email: params[:email],password: params[:password],address: params[:address])
     if @user.save
-      redirect_to @user
+      render json: user
     end
   end
 

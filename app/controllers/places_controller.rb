@@ -1,36 +1,35 @@
 class PlacesController < ApplicationController
   def show
-    @place=place.find(params[:id])
+    @place=Place.find(params[:id])
+    render json: @place
   end
 
   def new
-    @place=place.new
-    @places=place.find(:all)
+    @place=Place.new
   end
 
   def create
-    @place=place.new([:name][:last_name][:email][:password][:address])
+    place=Place.new(name: params[:name],address:  params[:address],capacity:  params[:capacity])
     if @place.save
-      redirect_to @place
+      render json: place
     end
   end
 
   def edit
-    @place=place.find(params[:id])
+    @place=Place.find(params[:id])
   end
 
   def update
-    @place= place.find(params[:id])
+    @place= Place.find(params[:id])
     if @place.update_attributes(params[:place])
       redirect_to :action=> 'show', :id=>@place
     else
-      @place=place.find(:all)
       render :action=>'edit'
     end
   end
 
   def destroy
-    @place=place.find(params[:id])
+    @place=Place.find(params[:id])
     @place.destroy
     redirect_to '/places/new', :notice=>"Your place has been Deleted"
   end
